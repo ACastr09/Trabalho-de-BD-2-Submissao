@@ -51,22 +51,22 @@ INSERT INTO Utente (idUtente, sns, nome, dataNascimento, genero, contacto, histo
     (1, '145896321', 'Carlos Martins', '1978-03-14', 'Masculino', '910000000', 'Hipertensão arterial controlada.'),
     (2, '236985412', 'Sofia Oliveira', '1993-11-05', 'Feminino', '960000000', NULL),
     (3, '109874523', 'António Pereira', '1957-07-22', 'Masculino', '930000000', 'Diabetes tipo 2 e asma ligeira.'),
-    (4, '000000004', 'Inês Martins', '1987-02-12', 'Feminino', '910000000', NULL);
+    (4, '214789635', 'Inês Martins', '1987-02-12', 'Feminino', '910000000', NULL);
 
 INSERT INTO Internamento (idInternamento, dataHoraEntrada, dataHoraAlta, motivoAdmissao, Utente) VALUES
     (1, '2026-11-01 08:30:00', '2026-11-04 16:00:00', 'Febre persistente e tosse há 4 dias.', 1),
     (2, '2026-11-02 10:15:00', '2026-11-05 11:30:00', 'Episódio de falta de ar acentuada.', 2),
     (3, '2026-11-06 14:20:00', NULL, 'Descompensação respiratória para vigilância.', 3),
-    (4, '2026-11-12 09:00:00', '2026-11-13 15:00:00', 'Reavaliação por persistência de sintomas.', 1);
+    (4, '2026-11-12 09:00:00', '2026-11-13 15:00:00', 'Reavaliação por dor torácica intensa e persistência de sintomas.', 1);
 
 INSERT INTO RegistoSinaisVitais (Internamento, dataRegisto, pressaoArterial, escalaDor, saturacaoO2, temperatura, frequenciaCardiaca, Enfermeiro) VALUES
     (1, '2026-11-01 08:45:00', '132/84', 4, 95, 38.4, 92, 'E201'),
     (1, '2026-11-04 15:00:00', '124/78', 0, 98, 36.6, 74, 'E202'),
     (2, '2026-11-02 10:30:00', '118/76', 3, 93, 37.1, 98, 'E202'),
-    (3, '2026-11-06 14:40:00', '145/88', 5, 91, 37.8, 102, 'E203'),
     (2, '2026-11-04 16:00:00', '120/78', 0, 100, 36.7, 78, 'E201'),
+    (3, '2026-11-06 14:40:00', '145/88', 5, 91, 37.8, 102, 'E203'),
     (3, '2026-11-07 09:00:00', '140/85', 4, 94, 37.3, 90, 'E203'),
-    (4, '2026-11-12 09:00:00', '128/80', 10, 98, 36.8, 88, 'E202');
+    (4, '2026-11-12 09:00:00', '128/80', 10, 98, 36.8, 108, 'E202');
 
 INSERT INTO Sintoma (idSintoma, nome) VALUES
     (1, 'Febre'),
@@ -113,11 +113,11 @@ INSERT INTO Prescricao (idPrescricao, dataInicio, dataFim, Diagnostico, Medico) 
     (12, '2026-11-12 12:10:00', '2026-11-13 12:00:00', 1, 'M101');
 
 INSERT INTO PrMedicamento (Prescricao, numeroMedicamentos, posologia) VALUES
-    (1, 2, 'Amoxicilina de 8 em 8 horas; Paracetamol em caso de febre ou dor, max 3 por dia.'),
+    (1, 2, 'Amoxicilina de 8 em 8 horas; Paracetamol em caso de febre ou dor, máx. 3 por dia.'),
     (4, 1, '2 inalações de 6 em 6 horas.'),
     (6, 1, 'Meio comprimido de 12 em 12 horas.'),
-    (7, 1, 'Aplicação local registada no plano do episódio.'),
-    (8, 1, 'Administração única registada no episódio.');
+    (7, 1, 'Aplicar em camada fina na zona afetada de 8 em 8 horas.'),
+    (8, 1, 'Administração única por via intravenosa para controlo álgico.');
 
 INSERT INTO PrAnalise (Prescricao, nome, tipo) VALUES
     (2, 'Hemograma completo', 'Sangue'),
@@ -151,7 +151,7 @@ INSERT INTO Dosagem (Prescricao, Medicamento, quantidade) VALUES
     (4, 3, '2 inalações (100mcg/dose)'),
     (6, 2, '0.5 comprimido (500mg)'),
     (7, 4, '1 aplicação'),
-    (8, 5, '1 unidade de apresentação');
+    (8, 5, '1 frasco (1000mg/100ml)');
 
 INSERT INTO Administracao (idAdministracao, dataAdministracao, lote, Via, Enfermeiro, Medicamento) VALUES
     (1, '2026-11-01 11:00:00', 'AMX26A12', 1, 'E201', 1),
@@ -159,8 +159,8 @@ INSERT INTO Administracao (idAdministracao, dataAdministracao, lote, Via, Enferm
     (3, '2026-11-02 08:30:00', 'PAR26B04', 1, 'E201', 2),
     (4, '2026-11-02 12:00:00', 'SLB25C98', 2, 'E202', 3),
     (5, '2026-11-06 17:05:00', 'PAR26B04', 1, 'E203', 2),
-    (6, '2026-11-12 11:10:00', 'L26C', 4, 'E202', 4),
-    (7, '2026-11-12 11:50:00', 'L26C', 3, 'E201', 5);
+    (6, '2026-11-12 11:10:00', 'LOT26D19', 4, 'E202', 4),
+    (7, '2026-11-12 11:50:00', 'LOT26D19', 3, 'E201', 5);
 
 INSERT INTO ColheitaDeAnalise (idColheita, dataHoraEfetiva, Analise, Enfermeiro) VALUES
     (1, '2026-11-01 11:10:00', 2, 'E201'),

@@ -87,7 +87,7 @@ CREATE TABLE Utente (
     ),
     genero TEXT NOT NULL CHECK (length(trim(genero)) > 0),
     contacto TEXT NOT NULL CHECK (length(trim(contacto)) > 0),
-    historicoClinico TEXT
+    historicoClinico TEXT CHECK (historicoClinico IS NULL OR length(trim(historicoClinico)) > 0)
 );
 
 CREATE TABLE Internamento (
@@ -120,10 +120,13 @@ CREATE TABLE RegistoSinaisVitais (
         AND length(pressaoArterial) - instr(pressaoArterial, '/') BETWEEN 1 AND 3
         AND substr(pressaoArterial, 1, instr(pressaoArterial, '/') - 1) NOT GLOB '*[^0-9]*'
         AND substr(pressaoArterial, instr(pressaoArterial, '/') + 1) NOT GLOB '*[^0-9]*'
+        AND CAST(substr(pressaoArterial, instr(pressaoArterial, '/') + 1) AS INTEGER) > 0
+        AND CAST(substr(pressaoArterial, 1, instr(pressaoArterial, '/') - 1) AS INTEGER)
+            > CAST(substr(pressaoArterial, instr(pressaoArterial, '/') + 1) AS INTEGER)
     ),
     escalaDor INTEGER NOT NULL CHECK (typeof(escalaDor) = 'integer' AND escalaDor BETWEEN 0 AND 10),
-    saturacaoO2 REAL NOT NULL CHECK (saturacaoO2 >= 0 AND saturacaoO2 <= 100),
-    temperatura REAL NOT NULL CHECK (typeof(temperatura) IN ('integer', 'real')),
+    saturacaoO2 REAL NOT NULL CHECK (typeof(saturacaoO2) IN ('integer', 'real') AND saturacaoO2 >= 0 AND saturacaoO2 <= 100),
+    temperatura REAL NOT NULL CHECK (typeof(temperatura) IN ('integer', 'real') AND temperatura > 0),
     frequenciaCardiaca INTEGER NOT NULL CHECK (typeof(frequenciaCardiaca) = 'integer' AND frequenciaCardiaca > 0),
     Enfermeiro TEXT NOT NULL,
     PRIMARY KEY (Internamento, dataRegisto),
